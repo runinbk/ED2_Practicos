@@ -131,4 +131,9 @@ public class Arbol {
      * PRACTICO DE ARBOLES BINARIOS - PREVIO AL 1ER PARCIAL...
      */
 
+    // PREGUNTA 1
+    public int cantGajos() {
+
+    }
+
 }
