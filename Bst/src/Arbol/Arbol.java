@@ -394,4 +394,81 @@ public class Arbol {
         return false;
     }
 
+    // EJERCICIOS DE ARBOLES TIPO EXAMEN
+
+    // PREGUNTA 1
+
+    public void delHojaEx(int a, int h) {
+        delHojaEx(Raiz, a, h);
+    }
+
+    private void delHojaEx(Nodo T, int a, int h) {
+        if (T != null) {
+            if (T.getData() == a && isAncestro(T, h)) {
+                delHojaAncestro(T, h);
+            }
+            delHojaEx(T.getHI(), a, h);
+            delHojaEx(T.getHD(), a, h);
+        }
+    }
+
+    private boolean isAncestro(Nodo T, int h) {
+        if (T != null) {
+            if (T.getData() == h) {
+                return true;
+            }
+            return isAncestro(T.getHI(), h) || isAncestro(T.getHD(), h);
+        }
+        return false;
+    }
+
+    private void delHojaAncestro(Nodo T, int h) {
+        if (T != null) {
+            if (hoja(T.getHI()) && T.getHI().getData() == h) {
+                T.setHI(null);
+            }
+            if (hoja(T.getHD()) && T.getHD().getData() == h) {
+                T.setHD(null);
+            }
+            delHojaAncestro(T.getHI(), h);
+            delHojaAncestro(T.getHD(), h);
+        }
+    }
+
+    // PREGUNTA 2
+
+    public boolean downK(int a, int b, int k) {
+        return downK(Raiz, a, b, k);
+    }
+
+    private boolean downK(Nodo T, int a, int b, int k) {
+        if (T != null) {
+            if (T.getData() == a) {
+                return downK(T, b, k);
+            }
+            return downK(T.getHI(), a, b, k) || downK(T.getHD(), a, b, k);
+        }
+        return false;
+    }
+
+    private boolean downK(Nodo T, int b, int k) {
+        if (T != null) {
+            if (T.getData() == b && k == Nivel(T, b)) {
+                return k == 0;
+            }
+            return downK(T.getHI(), b, k - 1) || downK(T.getHD(), b, k - 1);
+        }
+        return false;
+    }
+
+    private int Nivel(Nodo T, int x) {
+        if (T != null) {
+            if (T.getData() == x) {
+                return 0;
+            }
+            return 1 + Nivel(T.getHI(), x) + Nivel(T.getHD(), x);
+        }
+        return -1;
+    }
+
 }

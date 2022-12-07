@@ -84,19 +84,37 @@ public class Main {
         // System.out.println("B.isBunch(30) ==>> " + B.isBunch(30));
         // System.out.println("B.isBunch(1) ==>> " + B.isBunch(1));
 
-        B.cutBunch(46);
-        System.out.println("B.cutBunch(46)");
-        B.niveles();
-        B.cutBunch(8);
-        System.out.println("B.cutBunch(8)");
-        B.niveles();
-        B.cutBunch(9);
-        System.out.println("B.cutBunch(9)");
-        B.niveles();
-        B.cutBunch(45);
-        System.out.println("B.cutBunch(46)");
-        B.niveles();
+        // B.cutBunch(46);
+        // System.out.println("B.cutBunch(46)");
+        // B.niveles();
+        // B.cutBunch(8);
+        // System.out.println("B.cutBunch(8)");
+        // B.niveles();
+        // B.cutBunch(9);
+        // System.out.println("B.cutBunch(9)");
+        // B.niveles();
+        // B.cutBunch(45);
+        // System.out.println("B.cutBunch(46)");
+        // B.niveles();
 
+        // B.delHojaEx(20, 9);
+        // System.out.println("B.delHojaEx(20, 9)");
+        // B.niveles();
+        // B.delHojaEx(20, 8);
+        // System.out.println("B.delHojaEx(20, 8)");
+        // B.niveles();
+        // B.delHojaEx(30, 46);
+        // System.out.println("B.delHojaEx(30, 46)");
+        // B.niveles();
+        // B.delHojaEx(20, 44);
+        // System.out.println("B.delHojaEx(20, 44)");
+        // B.niveles();
+
+        B.niveles();
+        System.out.println("B.downK(20, 8, 2) ==>> " + B.downK(20, 8, 2));
+        System.out.println("B.downK(20, 8, 3) ==>> " + B.downK(20, 8, 3));
+        System.out.println("B.downK(20, 44, 2) ==>> " + B.downK(20, 44, 2));
+        System.out.println("B.downK(30, 46, 3) ==>> " + B.downK(30, 46, 3));
     }
 
 }
