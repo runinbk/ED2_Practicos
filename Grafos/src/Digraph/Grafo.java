@@ -374,4 +374,52 @@ public class Grafo { // Grafo Dirigido
     // ---------------------------------EJERCICIOS_EXTRA---------------------------------------
     // ----------------------------------------------------------------------------------------
 
+    // ----------------------------------------------------------------------------------------
+    // ---------------------------------EXAMENES_RESUELTOS---------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    // 2-2022/2doParcial.
+    // Informalmente, decimos que dos vértices u y v son vecindos, si desde u es
+    // posible visitar a v, recorriendo
+    // exactamente dos aristas no-lazos, sin importar el sentido (i.e. se puede ir
+    // en contraflecha). Sabiendo esto, en la class
+    // Grafo, escriba la función
+
+    // public boolean vecindos(int u, int v)
+    // //Por comodidad, asuma que uv
+
+    // la cual devuelva true si y solo si los vértices u y v son vecindos.
+    // Por ejemplo, con el Grafo A:
+
+    // A.vecindos(2,0)=true //Desde el vértice 2 cruzando dos aristas llegamos a 0
+    // (2 → 8 →0)
+    // A.vecindos(3,7)=true //Es posible recorrer dos aristas para llegar del 3 al 7
+    // (3 → 5 →7).
+    // A.vecindos(0,8)=false //Desde el 0 no es posible llegar al 8 recorriendo dos
+    // aristas (no se puede transitar por los lazos).
+    // A.vecindos(4,3)=false //Necesitamos recorrer más de dos aristas para ir del 4
+    // al 3.
+    // A.vecindos(6,8)=false //Desde el 6 no se puede llegar al 8.
+    // A.vecindos(1,7)=true //Es posible recorrer dos aristas para llegar del 1 al 7
+    // (1 → 6 →7)
+
+    public boolean vecindos(int u, int v) {
+        if (isVerticeValido(u) && isVerticeValido(v)) {
+            for (int i = 0; i < V[u].length(); i++) {
+                int w = V[u].get(i);
+                for (int j = 0; j < V.length; j++) {
+                    // for (int k = 0; k < V[j].length(); k++) {
+                    // if (j == V[j].get(k)) {
+                    // k++;
+                    // }
+                    if (V[j].existe(w) && j == v) {
+                        return true;
+                    }
+                    // }
+                }
+            }
+        }
+        return false;
+    }
+
 }

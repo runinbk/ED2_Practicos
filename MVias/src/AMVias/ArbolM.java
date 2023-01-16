@@ -708,6 +708,47 @@ public class ArbolM {
     // ------------------------------------------------------------------------
     // -------------------------MODELOS DE EXAMENES----------------------------
     // ------------------------------------------------------------------------
+
+    // 2-2022/2doParcial
+    // Llamamos suma de un nodo N, a la suma de sus Datas.
+    // En la class NodoM, existe una función suma( ) que realiza este cálculo.
+    // Por ejemplo, si el nodo N=[10|25| ], entonces N.suma( )=10+25=35.
+    // Sabiendo esto, en la class ArbolM, escriba el procedimiento:
+
+    // public void delLeafs(int s)
+
+    // el cual elimine todas las hojas que cuelgan de aquellos nodos cuya suma es s.
+    // Por ejemplo, para el árbol A:
+
+    // A.delLeafs(185);
+    // El nodo [40|60|85] tiene suma=40+60+85=185.
+    // Entonces, cada una de sus hojas serán eliminadas
+
+    // A.delLeafs(1070);
+    // El nodo [320|350|400] tiene suma=1070.
+    // Entonces, cada una de las hojas de este nodo serán eliminadas.
+
+    // A.delLeafs(185);
+    // El nodo [40|60|85] tiene suma=185.
+    // Pero, como no tiene hojas que eliminar, el árbol queda igual.
+
+    public void delLeafs(int sum) {
+        delLeafs(raiz, sum);
+    }
+
+    private void delLeafs(NodoM t, int sum) {
+        if (t != null) {
+            for (int i = 1; i <= NodoM.M; i++) {
+                if (hoja(t.getHijo(i)) && t.sumDatas() == sum) {
+                    t.setHijo(i, null);
+                    n--;
+                }
+                delLeafs(t.getHijo(i), sum);
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------------
     // 1. En la class ArbolM, escriba el procedimiento:
 
     // public void delLeafData(int x)
