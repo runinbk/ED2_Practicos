@@ -34,16 +34,26 @@ public class Main {
         // B.borrarHoja(185);
         // B.delAlone(74);
         // B.delHoja(270);
-        // System.out.print(B.lastParent(190, 180));
-        // System.out.print(B.superParentR(300, 310));
+        System.out.println("lastParent(190, 180) -> " + B.lastParent2(190, 180));
+        System.out.println("superParentR(300, 310) -> " + B.superParentR(300, 310));
         // System.out.print(B.tio(350, 50));
 
         // B.delHojas(1);
 
         // B.delLeafData(270);
-        B.delLeafs(185);
-        B.niveles();
-        B.inorden();
+        // B.delLeafs(185);
+
+        // B.delSemiHoja(70);
+        // B.niveles();
+        // B.inorden();
+
+        // B.delSemiHoja(400);
+        // B.niveles();
+        // B.inorden();
+
+        // B.delSemiHoja(190);
+        // B.niveles();
+        // B.inorden();
     }
 
 }

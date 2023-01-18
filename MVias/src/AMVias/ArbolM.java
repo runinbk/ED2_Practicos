@@ -2,6 +2,8 @@ package AMVias;
 
 import java.util.LinkedList;
 
+import Digraph.Nodo;
+
 public class ArbolM {
     private NodoM raiz;
     private int n; // n=cantidad de nodos.
@@ -404,13 +406,14 @@ public class ArbolM {
     private boolean lastParent(NodoM t, int p, int h) {
         if (t != null) {
             for (int i = 1; i <= NodoM.M; i++) {
-                if (t.getHijo(i).existe(p)) {
+                if (t.getHijo(i) != null && t.getHijo(i).existe(p)) {
                     for (int j = 1; i <= NodoM.M; i++) {
-                        if (t.getHijo(i).getHijo(j).existe(h)) {
+                        if (t.getHijo(i).getHijo(j) != null && t.getHijo(i).getHijo(j).existe(h)) {
                             return true;
                         }
                     }
                 }
+                lastParent(t.getHijo(i), p, h);
             }
             return false;
         }
@@ -707,6 +710,92 @@ public class ArbolM {
 
     // ------------------------------------------------------------------------
     // -------------------------MODELOS DE EXAMENES----------------------------
+    // ------------------------------------------------------------------------
+
+    // 1-2021 / 2do PARCIAL
+    // Decimos que un nodo de un árbol M-Vías es semi-hoja (o cuasi-hoja), si tiene
+    // exactamente un hijo y éste es una hoja. Sabiendo esto, escriba el
+    // procedimiento
+
+    // public void delSemiHoja(int x)
+
+    // el cual elimine el nodo semi-hoja, que contiene al data x. Si un semi-hoja es
+    // eliminado, su único hijo (o sea la hoja) ocupa su lugar.
+
+    // (Si x no existe o x está en un nodo que no es semi-hoja, este procedimiento
+    // no hace nada)
+    // .
+    // Por ejemplo: Dado el árbol A
+
+    // A.delSemiHoja(220); El data 220 no existe, el árbol queda igual.
+    // A.delSemiHoja(150); El 150 existe, pero no está en una semi-hoja. El Árbol
+    // queda igual.
+    // A.delSemiHoja(70); El 70 está en la semi-hoja [65|70|80], entonces éste nodo
+    // es
+    // eliminado y su hoja (su único hijo) [74|76| ], ocupa su lugar
+
+    public void delSemiHoja(int x) {
+        delSemiHoja(raiz, x);
+    }
+
+    private void delSemiHoja(NodoM t, int x) {
+        if (t != null) {
+            for (int i = 1; i <= NodoM.M; i++) {
+                if (t.getHijo(i) != null && t.getHijo(i).existe(x) && t.getHijo(i).cantHijos() == 1) {
+                    for (int j = 1; j <= NodoM.M; j++) {
+                        if (t.getHijo(i).getHijo(j) != null && hoja(t.getHijo(i).getHijo(j))) {
+                            t.setHijo(i, t.getHijo(i).getHijo(j));
+                        }
+                    }
+                }
+                delSemiHoja(t.getHijo(i), x);
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    // 2-2018 / 2do PARCIAL
+    // En un Arbol m-vías, se dice que p es un lastParent de h, si h está en una
+    // hoja
+    // y p está en el nodo que sostiene a esta hoja. En la class ArbolM, escriba la
+    // función:
+
+    // public boolean lastParent(int p, int h)
+
+    // la cual devuelva true si p es un lastParent de h. Si p no es un lastParent de
+    // h o p o h
+    // no existen, devuelve false.
+
+    // Por ejemplo: Si tomamos el siguiente árbol A:
+
+    // lastParent(68,75)=true //75 está en una hoja y 68 está en el nodo padre.
+    // lastParent(300,40)=false //Aunque el 300 esté en el nodo padre de 40, 40 no
+    // está en una hoja.
+    // lastParent(600,500)=false //El 600 no existe.
+    // lastParent(170,5)=false //El 5 no existe.
+    // lastParent(190,180)=true //180 está en una hoja y 190 está en el nodo padre
+
+    public boolean lastParent2(int p, int h) {
+        boolean b = false;
+
+        return lastParent2(raiz, p, h, b);
+    }
+
+    private boolean lastParent2(NodoM t, int p, int h, boolean b) {
+        if (t != null) {
+            if (t.existe(p)) {
+                for (int i = 1; i <= NodoM.M; i++) {
+                    if (t.getHijo(i) != null && t.getHijo(i).existe(h)) {
+                        b = true;
+                    }
+                    lastParent2(t.getHijo(i), p, h, b);
+                }
+            }
+        }
+        return b;
+    }
+
     // ------------------------------------------------------------------------
 
     // 2-2022/2doParcial
