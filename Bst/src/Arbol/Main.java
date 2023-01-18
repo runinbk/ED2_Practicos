@@ -4,9 +4,9 @@ package Arbol;
 public class Main {
 
     private static final int[] datos = { 3, 7, 9, 8, 3, 5 };
-    // private static final int[] datos2 = { 30, 20, 60, 19, 21, 45, 70, 8, 22, 44,
-    // 46, 7, 9, 69, 71 };
-    private static final int[] datos2 = { 30, 20, 60, 19, 45, 8, 44, 46, 7, 9 };
+    private static final int[] datos2 = { 30, 20, 60, 19, 21, 45, 70, 8, 22, 44,
+            46, 7, 9, 69, 71 };
+    // private static final int[] datos2 = { 30, 20, 60, 19, 45, 8, 44, 46, 7, 9 };
 
     private static void cargarDatos(Arbol T) {
         for (int i = 0; i < datos.length; i++) {

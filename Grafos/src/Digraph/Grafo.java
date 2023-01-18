@@ -136,7 +136,8 @@ public class Grafo { // Grafo Dirigido
 
     private void desmarcarTodos() {
         for (int i = 0; i <= n; i++) {
-            marca[i] = false;
+            // marca[i] = false;
+            desmarcar(i);
         }
     }
 
@@ -370,12 +371,324 @@ public class Grafo { // Grafo Dirigido
         return m;
     }
 
+    public void bfsForce(int u) { // Recorrido Breadth-First Search ( en anchura ) y doble sentido
+        if (!isVerticeValido(u))
+            return; // Validacion. u no existe en el grafo
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>(); // "cola" = (vacia) = (empty)
+        cola.add(u);
+        marcar(u);
+        System.out.print("BFS doble sentido :");
+
+        do {
+            int v = cola.pop(); // Obtener el 1er elemento de la "cola".
+            System.out.print(" " + v);
+
+            for (int i = 0; i < V[v].length(); i++) {
+                int w = V[v].get(i);
+
+                if (!isMarcado(w)) {
+                    cola.add(w);
+                    marcar(w);
+                }
+            }
+            for (int j = 0; j < n; j++) {
+                if (V[j].existe(v) && !isMarcado(j)) {
+                    cola.add(j);
+                    marcar(j);
+                }
+            }
+        } while (!cola.isEmpty());
+        System.out.println();
+    }
+
     // ----------------------------------------------------------------------------------------
     // ---------------------------------EJERCICIOS_EXTRA---------------------------------------
     // ----------------------------------------------------------------------------------------
 
     // ----------------------------------------------------------------------------------------
     // ---------------------------------EXAMENES_RESUELTOS---------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    // 1-2017 / EXAMEN FINAL
+    // Imaginando que los vértices del grafo son bolas de “plastoform” y que las
+    // aristas son alambres
+    // que se unen a los vértices, es criba la función
+
+    // public boolean conectado()
+
+    // la cual devuelva true sii todo el grafo puede ser cargado como una sola
+    // pieza. Por ejemplo:
+
+    public boolean conectado() {
+        bfsForce(0);
+        for (int i = 0; i < n; i++) {
+            if (!isMarcado(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // ----------------------------------------------------------------------------------------
+
+    // 1-2021 / EXAMEN FINAL
+    // .1 En la class Grafo, escriba la función
+
+    // public int edges(int u)
+
+    // la cual devuelva la cantidad de aristas que tiene la isla que contiene al
+    // vértice u
+
+    public int edges(int u) {
+        if (!isVerticeValido(u))
+            return 0;
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>();
+        cola.add(u);
+        marcar(u);
+        int count = 1;
+
+        do {
+            int v = cola.pop();
+
+            for (int i = 0; i < V[v].length(); i++) {
+                int w = V[v].get(i);
+
+                if (!isMarcado(w)) {
+                    cola.add(w);
+                    count++;
+                    marcar(w);
+                }
+            }
+            for (int j = 0; j < n; j++) {
+                if (V[j].existe(v) && !isMarcado(j)) {
+                    cola.add(j);
+                    count++;
+                    marcar(j);
+                }
+            }
+        } while (!cola.isEmpty());
+        return count;
+    }
+
+    // .2 Informalmente decimos que un vértice V es una “hoja”, si V no tiene
+    // adyacentes. En la class Grafo, escriba usted el
+    // procedimiento
+
+    // public int cantHojas(int u)
+
+    // la cual devuelva la cantidad de hojas que se encuentran en la misma “isla”
+    // del vértice u.
+
+    public int cantHojas(int u) {
+        if (!isVerticeValido(u))
+            return 0;
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>();
+        cola.add(u);
+        marcar(u);
+        int count = 0;
+
+        do {
+            int v = cola.pop();
+            if (V[v].length() == 0) {
+                count++;
+            }
+
+            for (int i = 0; i < V[v].length(); i++) {
+                int w = V[v].get(i);
+                if (!isMarcado(w)) {
+                    cola.add(w);
+                    marcar(w);
+                }
+            }
+            for (int j = 0; j < n; j++) {
+                if (V[j].existe(v) && !isMarcado(j)) {
+                    cola.add(j);
+                    marcar(j);
+                }
+            }
+        } while (!cola.isEmpty());
+        return count;
+    }
+
+    // ----------------------------------------------------------------------------------------
+
+    // 2-2018 / EXAMEN FINAL
+    // En la class Grafo, escriba el método
+
+    // public void path2(int u)
+
+    // el cual muestre en consola (print) los vértices que cruzando 2 aristas
+    // (sin importar si es contraflecha) se pueden visitar.
+
+    // A.path2(0)  1, 5
+    // A.path2(1)  0, 5, 2
+    // A.path2(3)  4, 5, 2
+    // A.path2(6)  (nada)
+
+    public void path2(int u) {
+        if (!isVerticeValido(u))
+            return;
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>();
+        cola.add(u);
+        marcar(u);
+        int c = 0;
+        int a = 0;
+        // String s = "path2 de " + u + " : ";
+        System.out.print("path2 de " + u + " : ");
+        do {
+            int v = cola.pop(); // Obtener el 1er elemento de la "cola".
+            for (int i = 0; i < V[v].length(); i++) {
+                int w = V[v].get(i);
+                if (!isMarcado(w)) {
+                    if (c == 1) {
+                        // s = s + " " + w;
+                        System.out.print(" " + w);
+                    }
+                    cola.add(w);
+                    marcar(w);
+                    a++;
+                }
+            }
+            for (int j = 0; j < n; j++) {
+                if (V[j].existe(v) && !isMarcado(j)) {
+                    if (c == 1) {
+                        // s = s + " " + j;
+                        System.out.print(" " + j);
+                    }
+                    cola.add(j);
+                    marcar(j);
+                    a++;
+                }
+            }
+            if (a != 0) {
+                c++;
+            }
+            a = 0;
+        } while (!cola.isEmpty());
+        System.out.println();
+    }
+
+    // ----------------------------------------------------------------------------------------
+
+    // 2-2020 / 2do PARCIAL
+    // Informalmente decimos que un vértice V es una “hoja”, si V no tiene
+    // adyacentes.
+    // En la class Grafo, escriba usted el procedimiento
+
+    // public void printHojas(int u)
+
+    // el cual muestre en consola (System.out.println), todos los vértices hojas que
+    // se
+    // encuentran en la misma “isla” del vértice u.
+
+    // Por ejemplo: (Los vértices hojas están sombreados)
+    // El orden en el cual se muestran en consola las hojas de una isla, no tiene
+    // importancia.
+
+    // printHojas(0); //Consola: 0, 1 (En la isla del vértice 0, las hojas son el 0
+    // y el 1)
+    // printHojas(1); //Consola: 0, 1
+    // printHojas(5); //Consola: 0, 1
+    // printHojas(9); //Consola: 9
+    // printHojas(8); //Consola: 7
+
+    public void printHojas(int u) {
+        if (!isVerticeValido(u))
+            return;
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>();
+        cola.add(u);
+        marcar(u);
+        System.out.print("printHolas de " + u + " : ");
+        if (V[u].length() == 0) {
+            System.out.print(" " + u);
+        }
+
+        do {
+            int v = cola.pop();
+
+            for (int i = 0; i < V[v].length(); i++) {
+                int w = V[v].get(i);
+                if (!isMarcado(w)) {
+                    cola.add(w);
+                    marcar(w);
+                    if (V[w].length() == 0) {
+                        System.out.print(" " + w);
+                    }
+                }
+            }
+            for (int j = 0; j < n; j++) {
+                if (V[j].existe(v) && !isMarcado(j)) {
+                    cola.add(j);
+                    marcar(j);
+                    if (V[j].length() == 0) {
+                        System.out.print(" " + j);
+                    }
+                }
+            }
+        } while (!cola.isEmpty());
+        System.out.println();
+    }
+
+    // ----------------------------------------------------------------------------------------
+
+    // 2-2018 / 2do PARCIAL
+    // En la class Grafo (dirigido), escriba la función
+
+    // public boolean kAlcanzable(int u, int v, int k)
+    // //Por comodidad, asuma que u≠v que k > 0 y que el grafo no tiene lazos.
+
+    // La cual devuelva true si y solo si, el vértice v es k-alcanzable desde el
+    // vértice u.
+    // Un vértice z es k-alcanzable a partir de un vértice a, si partiendo desde a,
+    // se puede alcanzar z, recorriendo hasta k aristas.
+
+    public boolean kAlcanzable(int u, int v, int k) {
+        if (!isVerticeValido(u) && !isVerticeValido(v))
+            return false;
+
+        desmarcarTodos();
+        LinkedList<Integer> cola = new LinkedList<>();
+        cola.add(u);
+        marcar(u);
+        int count = 0;
+        int a = 0;
+        System.out.print("BFS:");
+
+        do {
+            int x = cola.pop();
+            // System.out.print(" " + v);
+            if (a != 0) {
+                count++;
+            }
+            a = 0;
+            if (x == v && count <= k) {
+                return true;
+            }
+
+            for (int i = 0; i < V[x].length(); i++) {
+                int y = V[x].get(i);
+                if (!isMarcado(y)) {
+                    cola.add(y);
+                    marcar(y);
+                    a++;
+                }
+            }
+
+        } while (!cola.isEmpty());
+        // System.out.println();
+        return false;
+    }
+
     // ----------------------------------------------------------------------------------------
 
     // 2-2022/2doParcial.

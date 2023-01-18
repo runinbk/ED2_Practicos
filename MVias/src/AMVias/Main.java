@@ -40,7 +40,8 @@ public class Main {
 
         // B.delHojas(1);
 
-        B.delLeafData(270);
+        // B.delLeafData(270);
+        B.delLeafs(185);
         B.niveles();
         B.inorden();
     }
