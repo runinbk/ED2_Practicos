@@ -81,23 +81,19 @@ public class Grafo { // Grafo Dirigido
         LinkedList<Integer> cola = new LinkedList<>(); // "cola" = (vacía) = (empty)
         cola.add(u); // Insertar u a la "cola" (u se inserta al final de la lista).
         marcar(u);
-
-        System.out.print("BFS:");
+        // System.out.print("BFS:");
         do {
             int v = cola.pop(); // Obtener el 1er elemento de la "cola".
-            System.out.print(" " + v);
-
+            // System.out.print(" " + v);
             for (int i = 0; i < V[v].length(); i++) { // for (cada w adyacente a v)
                 int w = V[v].get(i);
-
                 if (!isMarcado(w)) {
                     cola.add(w);
                     marcar(w);
                 }
             }
         } while (!cola.isEmpty());
-
-        System.out.println();
+        // System.out.println();
     }
 
     public void printListas() { // Muestra las listas del Grafo. Util para el programador de esta class
